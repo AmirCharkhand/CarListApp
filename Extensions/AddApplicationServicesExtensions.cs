@@ -8,6 +8,7 @@ namespace CarListApp.Extensions
             services
                 .AddCarList()
                 .AddCarDetails()
+                .AddUriBuilder()
                 .AddHttpClient()
                 .AddSqliteConnection()
                 .AddApiCarService()
