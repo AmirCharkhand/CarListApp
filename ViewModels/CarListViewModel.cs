@@ -10,7 +10,8 @@ namespace CarListApp.ViewModels
 {
     public partial class CarListViewModel : BaseViewModel
     {
-        private readonly SqliteCarService _carService;
+        private readonly SqliteCarService _sqliteCarService;
+        private readonly ApiCarService _apiCarService;
 
         [ObservableProperty]
         private bool _isRefreshing = false;
@@ -23,11 +24,12 @@ namespace CarListApp.ViewModels
 
         public ObservableCollection<Car> Cars { get; private set; }
 
-        public CarListViewModel(SqliteCarService carService)
+        public CarListViewModel(SqliteCarService sqliteCarService, ApiCarService apiCarService)
         {
             Title = "Cars List";
             Cars = new ();
-            _carService = carService;
+            _sqliteCarService = sqliteCarService;
+            _apiCarService = apiCarService;
         }
 
         [RelayCommand]
@@ -63,12 +65,12 @@ namespace CarListApp.ViewModels
             {
                 IsBuisy = true;
                 var newCar = new Car() { Make = Make, Model = Model, Vin = Vin };
-                await _carService.AddNewCar(newCar);
-                await ReloadDataWithShowAlert("Insert Car");
+                await _apiCarService.AddNewCar(newCar);
+                await ReloadDataWithShowAlert("Add a new Car", $"{newCar.Make} {newCar.Model} successfuly added");
             }
             catch (Exception ex)
             {
-                await HandleExeptionWithError(ex, "Unable to add the New Car");
+                await HandleExeptionWithError(ex, "Couldn't add the car!");
             }
             finally 
             {
@@ -84,8 +86,8 @@ namespace CarListApp.ViewModels
             try
             {
                 IsBuisy = true;
-                await _carService.DeleteCar(id);
-                await ReloadDataWithShowAlert("Delete Car");
+                await _apiCarService.DeleteCar(id);
+                await ReloadDataWithShowAlert("Delete Car", "Car successfully deleted");
             }
             catch (Exception ex)
             {
@@ -109,23 +111,22 @@ namespace CarListApp.ViewModels
 
         private bool AreUserEntriesValid() => !(string.IsNullOrWhiteSpace(Make) || string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Vin));
 
-        private async Task ReloadDataWithShowAlert(string alertTitle)
+        private async Task ReloadDataWithShowAlert(string alertTitle, string alertMessage)
         {
-            await DisplayAlert(alertTitle, _carService.StatusMessage);
+            await DisplayAlert(alertTitle, alertMessage);
             await FillCarsList();
         }
 
         private async Task FillCarsList()
         {
             if (Cars.Any()) Cars.Clear();
-            var cars = await _carService.GetCars();
+            var cars = await _apiCarService.GetCars();
             foreach (var car in cars) Cars.Add(car);
         }
 
         private async Task HandleExeptionWithError(Exception ex, string errorMessage)
         {
             Debug.WriteLine($"{errorMessage} - {ex.Message}");
-            Debug.WriteLine($"Car Service Status: {_carService.StatusMessage}");
             await DisplayAlert("Error!", errorMessage);
         }
 
