@@ -8,8 +8,6 @@ namespace CarListApp.Services.Core
     {
         private readonly SQLiteConnection _connection;
 
-        public string StatusMessage { get; private set; } = string.Empty;
-
         public SqliteCarService(SQLiteConnection connection)
         {
             _connection = connection;

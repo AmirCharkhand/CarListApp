@@ -5,8 +5,6 @@ namespace CarListApp.Services.Contracts
 {
     public interface ICarService
     {
-        public string StatusMessage { get; }
-
         public Task<List<Car>> GetCars();
         public Task<Car> GetCarById(int carId);
         public Task AddNewCar(Car car);

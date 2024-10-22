@@ -11,8 +11,6 @@ namespace CarListApp.Services.Core
         private readonly HttpClient _httpClient;
         private readonly UriBuilderService _uriBuilderService;
 
-        public string StatusMessage { get; private set; } = string.Empty;
-
         public ApiCarService(HttpClient httpClient, UriBuilderService uriBuilderService)
         {
             _httpClient = httpClient;
