@@ -18,47 +18,25 @@ namespace CarListApp.Services.Core
 
         public async Task<List<Car>> GetCars()
         {
-            try
-            {
-                var cars = _connection!.Table<Car>().ToList();
-                await Task.CompletedTask;
-                return cars;
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Couldn't retrieve Cars {ex.Message}";
-            }
-            return new List<Car>();
+            var cars = _connection!.Table<Car>().ToList();
+            await Task.CompletedTask;
+            return cars;
         }
 
         public async Task AddNewCar(Car newCar)
         {
-            try
-            {
-                var result = _connection!.Insert(newCar);
-                await Task.CompletedTask;
-                StatusMessage = result == 0 ? "Insert Failed." : "Car Inserted";
-                return;
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Couldn't add the new Car {ex.Message}";
-            }
+            var result = _connection!.Insert(newCar);
+            await Task.CompletedTask;
+            if (result == 0)
+                throw new Exception("DB error: Couldn't add the new car");
         }
 
         public async Task DeleteCar(int id)
         {
-            try
-            {
-                var result = _connection!.Delete<Car>(id);
-                StatusMessage = result == 0 ? "Delete Failed." : "Car Deleted";
-                await Task.CompletedTask;
-                return;
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = $"Couldn't delete the Car {ex.Message}";
-            }
+            var result = _connection!.Delete<Car>(id);
+            await Task.CompletedTask;
+            if (result == 0)
+                throw new Exception("DB error: Couldn't Delete the Car");
         }
 
         public Task<Car> GetCarById(int carId)
