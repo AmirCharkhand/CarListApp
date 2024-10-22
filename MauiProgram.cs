@@ -1,7 +1,4 @@
 ﻿using CarListApp.Extensions;
-using CarListApp.Services.Core;
-using CarListApp.ViewModels;
-using CarListApp.Views;
 using Microsoft.Extensions.Logging;
 
 namespace CarListApp

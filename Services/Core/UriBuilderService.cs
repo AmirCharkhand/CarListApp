@@ -4,18 +4,34 @@
     {
         private const string baseUri = "http://carlist.somee.com";
 
-        public string BaseUri 
+        public Uri BaseUri 
         {
-            get => baseUri;
+            get => new Uri(baseUri);
         }
 
-        public Uri AddCarUri 
-        { 
-            get
-            {
-                var address = $"{baseUri}/cars";
-                return new Uri(address);
-            }
+        public Uri CarsUri 
+        {
+            get => new Uri(BaseUri, "cars/");
+        }
+
+        public Uri GetAddCarUri()
+        {
+            return CarsUri;
+        }
+
+        public Uri GetDeleteCarUri(int carId)
+        {
+            return new Uri(CarsUri, carId.ToString());
+        }
+
+        public Uri GetGetCarUri(int carId)
+        {
+            return new Uri(CarsUri, carId.ToString());
+        }
+
+        public Uri GetGetCarsUri()
+        {
+            return CarsUri;
         }
     }
 }
