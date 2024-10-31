@@ -1,4 +1,5 @@
 ﻿using CarListApp.Models;
+using CarListApp.Services.Contracts;
 using CarListApp.Services.Core;
 using CarListApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,8 +11,7 @@ namespace CarListApp.ViewModels
 {
     public partial class CarListViewModel : BaseViewModel
     {
-        private readonly SqliteCarService _sqliteCarService;
-        private readonly ApiCarService _apiCarService;
+        private readonly IServiceProvider _serviceProvider;
 
         [ObservableProperty]
         private bool _isRefreshing = false;
@@ -22,14 +22,23 @@ namespace CarListApp.ViewModels
         [ObservableProperty]
         private string _vin;
 
+        private ICarService CarService
+        {
+            get 
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                    return _serviceProvider.GetRequiredService<ApiCarService>();
+                else
+                    return _serviceProvider.GetRequiredService<SqliteCarService>();
+            }
+        }
         public ObservableCollection<Car> Cars { get; private set; }
 
-        public CarListViewModel(SqliteCarService sqliteCarService, ApiCarService apiCarService)
+        public CarListViewModel(IServiceProvider serviceProvider)
         {
             Title = "Cars List";
             Cars = new ();
-            _sqliteCarService = sqliteCarService;
-            _apiCarService = apiCarService;
+            _serviceProvider = serviceProvider;
         }
 
         [RelayCommand]
@@ -65,7 +74,7 @@ namespace CarListApp.ViewModels
             {
                 IsBuisy = true;
                 var newCar = new Car() { Make = Make, Model = Model, Vin = Vin };
-                await _apiCarService.AddNewCar(newCar);
+                await CarService.AddNewCar(newCar);
                 await ReloadDataWithShowAlert("Add a new Car", $"{newCar.Make} {newCar.Model} successfuly added");
             }
             catch (Exception ex)
@@ -86,7 +95,7 @@ namespace CarListApp.ViewModels
             try
             {
                 IsBuisy = true;
-                await _apiCarService.DeleteCar(id);
+                await CarService.DeleteCar(id);
                 await ReloadDataWithShowAlert("Delete Car", "Car successfully deleted");
             }
             catch (Exception ex)
@@ -120,7 +129,7 @@ namespace CarListApp.ViewModels
         private async Task FillCarsList()
         {
             if (Cars.Any()) Cars.Clear();
-            var cars = await _apiCarService.GetCars();
+            var cars = await CarService.GetCars();
             foreach (var car in cars) Cars.Add(car);
         }
 
