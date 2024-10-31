@@ -6,6 +6,8 @@ namespace CarListApp.Extensions
         public static void AddServices(this IServiceCollection services)
         {
             services
+                .AddLoadingPage()
+                .AddLoginPage()
                 .AddCarList()
                 .AddCarDetails()
                 .AddUriBuilder()
