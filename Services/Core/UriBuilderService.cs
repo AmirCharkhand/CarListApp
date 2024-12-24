@@ -14,6 +14,11 @@
             get => new Uri(BaseUri, "cars/");
         }
 
+        public Uri LoginUri
+        {
+            get => new Uri(BaseUri, "login/");
+        }
+
         public Uri GetAddCarUri()
         {
             return CarsUri;
@@ -32,6 +37,11 @@
         public Uri GetGetCarsUri()
         {
             return CarsUri;
+        }
+
+        public Uri GetLoginUri()
+        {
+            return LoginUri;
         }
     }
 }

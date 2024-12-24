@@ -2,11 +2,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarListApp.Views.LoginPage"
-             Title="LoginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             xmlns:ViewModel="clr-namespace:CarListApp.ViewModels"
+             x:DataType="ViewModel:LoginPageViewmodel"
+             Title="{Binding Title}"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout
+        Spacing="25"
+        Padding="30,5"
+        VerticalOptions="Center">
+
+        <VerticalStackLayout
+            Spacing="5">
+
+            <Label
+                Text="Welcom"
+                FontSize="Header"
+                HorizontalTextAlignment="Center"
+                TextColor="Gray"/>
+
+            <Label
+                Text="Login To your Account"
+                FontSize="Large"
+                HorizontalTextAlignment="Center"
+                TextColor="Gray"/>
+            
+        </VerticalStackLayout>
+
+        <Image
+            HeightRequest="300"
+            WidthRequest="300"
+            Source="login_bmw.png"/>
+
+        <Entry
+            Placeholder="Username"
+            Text="{Binding UserName}"/>
+
+        <Entry
+            Placeholder="Password"
+            Text="{Binding Password}"/>
+
+        <Button
+            Text="Sign in"
+            WidthRequest="100"
+            HorizontalOptions="Center"
+            CornerRadius="20"
+            Command="{Binding LoginCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

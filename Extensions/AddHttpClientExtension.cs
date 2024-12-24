@@ -1,14 +1,22 @@
-﻿
-using CarListApp.Services.Core;
-using System.Linq;
+﻿using CarListApp.Handlers;
 
 namespace CarListApp.Extensions
 {
     public static class AddHttpClientExtension
     {
-        public static IServiceCollection AddHttpClient(this IServiceCollection services)
+        public static IServiceCollection AddHttpClientFactory(this IServiceCollection services)
         {
-            return services.AddTransient<HttpClient>();
+            services
+                .AddTransient<AuthenticationDelegatingHandler>();
+
+            services
+                .AddHttpClient("UnAuthorized");
+
+            services
+                .AddHttpClient("Authorized")
+                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            return services;
         }
     }
 }

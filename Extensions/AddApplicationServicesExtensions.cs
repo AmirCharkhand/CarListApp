@@ -11,10 +11,12 @@ namespace CarListApp.Extensions
                 .AddCarList()
                 .AddCarDetails()
                 .AddUriBuilder()
-                .AddHttpClient()
+                .AddHttpClientFactory()
                 .AddSqliteConnection()
                 .AddApiCarService()
-                .AddSqliteCarService();
+                .AddSqliteCarService()
+                .AddAuthService()
+                .AddUserService();
         }
     }
 }

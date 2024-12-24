@@ -1,4 +1,5 @@
-﻿using CarListApp.Models;
+﻿using CarListApp.Exceptions;
+using CarListApp.Models;
 using CarListApp.Services.Contracts;
 using CarListApp.Services.Core;
 using CarListApp.Views;
@@ -137,6 +138,12 @@ namespace CarListApp.ViewModels
         {
             Debug.WriteLine($"{errorMessage} - {ex.Message}");
             await DisplayAlert("Error!", errorMessage);
+
+            if (ex is JwtInvalidOrExpierdException)
+            {
+                await DisplayAlert("Invalid Login", "Your session is not Invalid anymore, Please login to your account.");
+                await Shell.Current.GoToAsync(nameof(LoginPage));
+            }
         }
 
         private async Task DisplayAlert(string title, string message)

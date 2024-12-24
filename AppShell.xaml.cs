@@ -9,6 +9,7 @@ namespace CarListApp
             InitializeComponent();
             Routing.RegisterRoute(nameof(CarDetailsPage), typeof(CarDetailsPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         }
     }
