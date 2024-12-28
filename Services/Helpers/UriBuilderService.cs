@@ -1,15 +1,15 @@
-﻿namespace CarListApp.Services.Core
+﻿namespace CarListApp.Services.Helpers
 {
     public class UriBuilderService
     {
         private const string baseUri = "http://carlist.somee.com";
 
-        public Uri BaseUri 
+        public Uri BaseUri
         {
             get => new Uri(baseUri);
         }
 
-        public Uri CarsUri 
+        public Uri CarsUri
         {
             get => new Uri(BaseUri, "cars/");
         }
