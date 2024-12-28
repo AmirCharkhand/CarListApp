@@ -28,7 +28,7 @@ namespace CarListApp.Services.Core
         {
             await SecureStorage.SetAsync("EMail", userInfo.EMail);
             await SecureStorage.SetAsync("EMailConfirmed", userInfo.EMailConfirmed.ToString());
-            await SecureStorage.SetAsync("UserRole", userInfo.Role);
+            await SecureStorage.SetAsync("UserRole", userInfo.Role.ToString());
             Preferences.Set("UserId", userInfo.Id);
             Preferences.Set("UserName", userInfo.UserName);
 
