@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarListApp.Controls.FlyoutHeader">
+    <VerticalStackLayout>
+        <Label 
+            x:Name="lblWelcomeMessage"
+            FontSize="Header"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Label 
+            x:Name="lblUserRole"
+            FontSize="Large"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+    </VerticalStackLayout>
+</StackLayout>
