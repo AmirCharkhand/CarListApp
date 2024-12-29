@@ -1,6 +1,6 @@
 ﻿using CarListApp.ViewModels;
 
-namespace CarListApp
+namespace CarListApp.Views
 {
     public partial class MainPage : ContentPage
     {

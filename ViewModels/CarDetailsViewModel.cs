@@ -1,5 +1,6 @@
 ﻿
 using CarListApp.Models;
+using CarListApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
 
