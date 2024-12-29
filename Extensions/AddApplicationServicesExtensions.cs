@@ -10,7 +10,7 @@ namespace CarListApp.Extensions
                 .AddLoginPage()
                 .AddCarList()
                 .AddCarDetails()
-                .AddUriBuilder()
+                .AddHelpers()
                 .AddHttpClientFactory()
                 .AddSqliteConnection()
                 .AddApiCarService()
