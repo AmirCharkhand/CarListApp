@@ -14,7 +14,7 @@ namespace CarListApp.Services.Core
             var userId = Preferences.Get("UserId", string.Empty);
             var userName = Preferences.Get("UserName", string.Empty);
             var role = await SecureStorage.GetAsync("UserRole");
-            var eMail = await SecureStorage.GetAsync("Email");
+            var eMail = await SecureStorage.GetAsync("EMail");
             var eMailConfirmedString = await SecureStorage.GetAsync("EMailConfirmed");
 
             if (string.IsNullOrEmpty(eMailConfirmedString) || string.IsNullOrEmpty(eMail) || string.IsNullOrEmpty(role) || string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userId))
