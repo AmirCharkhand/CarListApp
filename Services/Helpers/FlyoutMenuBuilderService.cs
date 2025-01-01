@@ -1,4 +1,5 @@
 ﻿using CarListApp.Controls;
+using CarListApp.Models;
 using CarListApp.Services.Core;
 using CarListApp.Views;
 
@@ -14,6 +15,12 @@ namespace CarListApp.Services.Helpers
             Shell.Current.Items.Clear();
             Shell.Current.FlyoutHeader = new FlyoutHeader(userInfo);
 
+            BuildMenuBaseOnUserRole(userInfo);
+            BuildLogoutOption();
+        }
+
+        private void BuildMenuBaseOnUserRole(UserInfoModel userInfo)
+        {
             switch (userInfo.Role)
             {
                 case Enums.UserRole.Admin:
@@ -53,6 +60,25 @@ namespace CarListApp.Services.Helpers
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void BuildLogoutOption()
+        {
+            Shell.Current.Items.Add(new FlyoutItem()
+            {
+                Title = "Log out",
+                Route = nameof(LogoutPopup),
+                FlyoutDisplayOptions = FlyoutDisplayOptions.AsSingleItem,
+                Items =
+                {
+                    new ShellContent()
+                    {
+                        Icon = "dotnet_bot.png",
+                        Title = "Logout",
+                        ContentTemplate = new DataTemplate(typeof(LogoutPopup))
+                    }
+                }
+            });
         }
     }
 }

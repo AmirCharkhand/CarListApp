@@ -8,6 +8,7 @@ namespace CarListApp.Extensions
             services
                 .AddLoadingPage()
                 .AddLoginPage()
+                .AddLogoutPopUp()
                 .AddCarList()
                 .AddCarDetails()
                 .AddHelpers()
