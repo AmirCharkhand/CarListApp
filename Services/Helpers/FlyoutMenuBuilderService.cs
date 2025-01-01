@@ -29,12 +29,6 @@ namespace CarListApp.Services.Helpers
                                 Icon = "dotnet_bot.png",
                                 Title = "Admin page_1",
                                 ContentTemplate = new DataTemplate(typeof(MainPage)),
-                            },
-                            new ShellContent()
-                            {
-                                Icon = "dotnet_bot.png",
-                                Title = "Admin page_2",
-                                ContentTemplate = new DataTemplate(typeof(MainPage)),
                             }
                         }
                     });
@@ -51,12 +45,6 @@ namespace CarListApp.Services.Helpers
                             {
                                 Icon = "dotnet_bot.png",
                                 Title = "User page_1",
-                                ContentTemplate = new DataTemplate(typeof(MainPage)),
-                            },
-                            new ShellContent()
-                            {
-                                Icon = "dotnet_bot.png",
-                                Title = "User page_2",
                                 ContentTemplate = new DataTemplate(typeof(MainPage)),
                             }
                         }
