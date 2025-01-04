@@ -24,37 +24,19 @@ namespace CarListApp.Services.Helpers
             switch (userInfo.Role)
             {
                 case Enums.UserRole.Admin:
-                    Shell.Current.Items.Add(new FlyoutItem()
+                    Shell.Current.Items.Add(new ShellContent()
                     {
                         Title = "Cars List managment",
-                        Route = nameof(MainPage),
-                        FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems,
-                        Items =
-                        {
-                            new ShellContent()
-                            {
-                                Icon = "dotnet_bot.png",
-                                Title = "Admin page_1",
-                                ContentTemplate = new DataTemplate(typeof(MainPage)),
-                            }
-                        }
+                        Icon = "dotnet_bot.png",
+                        ContentTemplate = new DataTemplate(typeof(MainPage))
                     });
                     break;
                 case Enums.UserRole.User:
-                    Shell.Current.Items.Add(new FlyoutItem()
+                    Shell.Current.Items.Add(new ShellContent()
                     {
                         Title = "Cars List",
-                        Route = nameof(MainPage),
-                        FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems,
-                        Items =
-                        {
-                            new ShellContent()
-                            {
-                                Icon = "dotnet_bot.png",
-                                Title = "User page_1",
-                                ContentTemplate = new DataTemplate(typeof(MainPage)),
-                            }
-                        }
+                        Icon = "dotnet_bot.png",
+                        ContentTemplate = new DataTemplate(typeof(MainPage))
                     });
                     break;
                 default:
@@ -64,20 +46,11 @@ namespace CarListApp.Services.Helpers
 
         private void BuildLogoutOption()
         {
-            Shell.Current.Items.Add(new FlyoutItem()
+            Shell.Current.Items.Add(new ShellContent()
             {
-                Title = "Log out",
-                Route = nameof(LogoutPopup),
-                FlyoutDisplayOptions = FlyoutDisplayOptions.AsSingleItem,
-                Items =
-                {
-                    new ShellContent()
-                    {
-                        Icon = "dotnet_bot.png",
-                        Title = "Logout",
-                        ContentTemplate = new DataTemplate(typeof(LogoutPopup))
-                    }
-                }
+                Title = "Log Out",
+                Icon = "dotnet_bot.png",
+                ContentTemplate = new DataTemplate(typeof(LogoutPopup))
             });
         }
     }
