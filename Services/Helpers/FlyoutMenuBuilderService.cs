@@ -1,57 +1,57 @@
 ﻿using CarListApp.Controls;
 using CarListApp.Models;
-using CarListApp.Services.Core;
 using CarListApp.Views;
 
 namespace CarListApp.Services.Helpers
 {
-    public class FlyoutMenuBuilderService(UserService userService)
+    public class FlyoutMenuBuilderService
     {
-        private readonly UserService _userService = userService;
-
-        public async Task BuildMenu()
+        public FlyoutMenuModel BuildMenu(UserInfoModel userInfo)
         {
-            var userInfo = await _userService.GetUserInfo();
-            Shell.Current.Items.Clear();
-            Shell.Current.FlyoutHeader = new FlyoutHeader(userInfo);
+            var header = new FlyoutHeader(userInfo);
+            List<ShellContent> shellContents = BuildMenuBaseOnUserRole(userInfo);
+            shellContents.Add(BuildLogoutOption());
 
-            BuildMenuBaseOnUserRole(userInfo);
-            BuildLogoutOption();
+            return new FlyoutMenuModel(header, shellContents);
         }
 
-        private void BuildMenuBaseOnUserRole(UserInfoModel userInfo)
+        private List<ShellContent> BuildMenuBaseOnUserRole(UserInfoModel userInfo)
         {
+            var shellContents = new List<ShellContent>();
+
             switch (userInfo.Role)
             {
                 case Enums.UserRole.Admin:
-                    Shell.Current.Items.Add(new ShellContent()
+                    shellContents.Add(new ShellContent()
                     {
                         Title = "Cars List managment",
                         Icon = "dotnet_bot.png",
-                        ContentTemplate = new DataTemplate(typeof(MainPage))
+                        ContentTemplate = new DataTemplate(typeof(CarListPage))
                     });
                     break;
                 case Enums.UserRole.User:
-                    Shell.Current.Items.Add(new ShellContent()
+                    shellContents.Add(new ShellContent()
                     {
                         Title = "Cars List",
                         Icon = "dotnet_bot.png",
-                        ContentTemplate = new DataTemplate(typeof(MainPage))
+                        ContentTemplate = new DataTemplate(typeof(CarListPage))
                     });
                     break;
                 default:
                     throw new NotImplementedException();
             }
+
+            return shellContents;
         }
 
-        private void BuildLogoutOption()
+        private ShellContent BuildLogoutOption()
         {
-            Shell.Current.Items.Add(new ShellContent()
+            return new ShellContent()
             {
                 Title = "Log Out",
                 Icon = "dotnet_bot.png",
                 ContentTemplate = new DataTemplate(typeof(LogoutPopup))
-            });
+            };
         }
     }
 }

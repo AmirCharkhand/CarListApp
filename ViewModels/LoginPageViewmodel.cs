@@ -1,7 +1,6 @@
 ﻿
 using CarListApp.Models;
 using CarListApp.Services.Core;
-using CarListApp.Services.Helpers;
 using CarListApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,15 +10,13 @@ namespace CarListApp.ViewModels
     public partial class LoginPageViewmodel : BaseViewModel
     {
         private readonly AuthService _authService;
-        private readonly FlyoutMenuBuilderService _flyoutMenuBuilder;
 
         [ObservableProperty] string _userName = string.Empty;
         [ObservableProperty] string _password = string.Empty;
 
-        public LoginPageViewmodel(AuthService authService, FlyoutMenuBuilderService flyoutMenuBuilder)
+        public LoginPageViewmodel(AuthService authService)
         {
             _authService = authService;
-            _flyoutMenuBuilder = flyoutMenuBuilder;
             Title = "Login";
         }
 
@@ -35,8 +32,8 @@ namespace CarListApp.ViewModels
                 var loginModel = new LoginModel(UserName, Password);
                 await _authService.Login(loginModel);
                 await ShowMassage("Welcome", "Successful login");
-                await _flyoutMenuBuilder.BuildMenu();
-                await Shell.Current.GoToAsync(nameof(MainPage));
+
+                await Shell.Current.GoToAsync(nameof(CarListPage), true);
             }
             catch (Exception e)
             {

@@ -2,10 +2,11 @@
 
 namespace CarListApp.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class CarListPage : ContentPage
     {
         private readonly CarListViewModel _viewModel;
-        public MainPage(CarListViewModel carListViewModel)
+
+        public CarListPage(CarListViewModel carListViewModel)
         {
             BindingContext = carListViewModel;
             _viewModel = carListViewModel;
@@ -14,8 +15,9 @@ namespace CarListApp.Views
 
         protected async override void OnAppearing()
         {
-            base.OnAppearing();
+            await _viewModel.SetFlyoutMenuCommand.ExecuteAsync(null);
             await _viewModel.GetCarsCommand.ExecuteAsync(null);
+            base.OnAppearing();
         }
     }
 

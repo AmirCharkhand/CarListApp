@@ -10,7 +10,7 @@ namespace CarListApp.Extensions
         {
             return services
                 .AddSingleton<CarListViewModel>()
-                .AddSingleton<MainPage>();
+                .AddSingleton<CarListPage>();
         }
     }
 }

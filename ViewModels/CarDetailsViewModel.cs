@@ -30,7 +30,7 @@ namespace CarListApp.ViewModels
         {
             Debug.WriteLine($"Null or Invalid Car: {error}");
             await Shell.Current.DisplayAlert("Error", "Invalid Car", "OK");
-            await Shell.Current.GoToAsync(nameof(MainPage), true);
+            await Shell.Current.GoToAsync(nameof(CarListPage), true);
         }
     }
 }

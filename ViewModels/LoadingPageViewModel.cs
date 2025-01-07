@@ -1,6 +1,5 @@
 ﻿
 using CarListApp.Services.Core;
-using CarListApp.Services.Helpers;
 using CarListApp.Views;
 using CommunityToolkit.Mvvm.Input;
 
@@ -9,12 +8,10 @@ namespace CarListApp.ViewModels
     public partial class LoadingPageViewModel : BaseViewModel
     {
         private readonly AuthService _authService;
-        private readonly FlyoutMenuBuilderService _flyoutMenuBuilder;
 
-        public LoadingPageViewModel(AuthService authService, FlyoutMenuBuilderService flyoutMenuBuilder) 
+        public LoadingPageViewModel(AuthService authService)
         {
             _authService = authService;
-            _flyoutMenuBuilder = flyoutMenuBuilder;
             Title = "Loading Page";
         }
 
@@ -23,8 +20,7 @@ namespace CarListApp.ViewModels
         {
             if (await _authService.IsJwtValid())
             {
-                await _flyoutMenuBuilder.BuildMenu();
-                await Shell.Current.GoToAsync(nameof(MainPage), true);
+                await Shell.Current.GoToAsync(nameof(CarListPage), true);
             }
             else
             {

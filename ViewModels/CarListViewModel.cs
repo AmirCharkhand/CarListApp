@@ -2,6 +2,7 @@
 using CarListApp.Models;
 using CarListApp.Services.Contracts;
 using CarListApp.Services.Core;
+using CarListApp.Services.Helpers;
 using CarListApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,6 +14,7 @@ namespace CarListApp.ViewModels
     public partial class CarListViewModel : BaseViewModel
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ShellController _shellController;
 
         [ObservableProperty]
         private bool _isRefreshing = false;
@@ -33,14 +35,19 @@ namespace CarListApp.ViewModels
                     return _serviceProvider.GetRequiredService<SqliteCarService>();
             }
         }
+
         public ObservableCollection<Car> Cars { get; private set; }
 
-        public CarListViewModel(IServiceProvider serviceProvider)
+        public CarListViewModel(IServiceProvider serviceProvider, ShellController shellController)
         {
             Title = "Cars List";
             Cars = new ();
             _serviceProvider = serviceProvider;
+            _shellController = shellController;
         }
+
+        [RelayCommand]
+        private async Task SetFlyoutMenu() => await _shellController.SetFlyout();
 
         [RelayCommand]
         private async Task GetCars()

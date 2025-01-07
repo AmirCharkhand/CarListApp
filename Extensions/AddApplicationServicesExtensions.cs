@@ -12,6 +12,7 @@ namespace CarListApp.Extensions
                 .AddCarList()
                 .AddCarDetails()
                 .AddHelpers()
+                .AddShellController()
                 .AddHttpClientFactory()
                 .AddSqliteConnection()
                 .AddApiCarService()
