@@ -3,21 +3,18 @@ using CarListApp.Services.Helpers;
 
 namespace CarListApp.Services.Core
 {
-    public class ShellController(FlyoutMenuBuilderService flyoutMenuBuilder, UserService userService)
+    public class ShellController
     {
-        private FlyoutMenuBuilderService _flyoutMenuBuilder = flyoutMenuBuilder;
-        private UserService _userService = userService;
-
         private string UserId { get; set; } = string.Empty;
 
-        public async Task SetFlyout()
+        public async Task SetFlyout(UserService userService, FlyoutMenuBuilderService flyoutMenuBuilder)
         {
-            var currentUser = await _userService.GetUserInfo();
+            var currentUser = await userService.GetUserInfo();
             if (string.Equals(UserId,currentUser.Id))
                 return;
 
             UserId = currentUser.Id;
-            var flyoutMenu = _flyoutMenuBuilder.BuildMenu(currentUser);
+            var flyoutMenu = flyoutMenuBuilder.BuildMenu(currentUser);
             Shell.Current.Items.Clear();
             Shell.Current.FlyoutHeader = flyoutMenu.FlyoutHeader;
             foreach (var shellContent in flyoutMenu.Contents)

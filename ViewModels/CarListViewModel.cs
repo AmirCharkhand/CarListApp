@@ -47,7 +47,10 @@ namespace CarListApp.ViewModels
         }
 
         [RelayCommand]
-        private async Task SetFlyoutMenu() => await _shellController.SetFlyout();
+        private async Task SetFlyoutMenu()
+        {
+            await _shellController.SetFlyout(_serviceProvider.GetRequiredService<UserService>(), _serviceProvider.GetRequiredService<FlyoutMenuBuilderService>());
+        }
 
         [RelayCommand]
         private async Task GetCars()
