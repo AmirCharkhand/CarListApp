@@ -11,9 +11,6 @@
             Text="{Binding Car.Vin}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-
-        <Button
-            Text="See the Stack"
-            Command="{Binding DisplayNavigationStackCommand}"/>
+        
     </VerticalStackLayout>
 </ContentPage>
