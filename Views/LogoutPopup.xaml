@@ -18,15 +18,12 @@
         <HorizontalStackLayout
             HorizontalOptions="Center"
             Spacing="10">
+            
             <Button
                 Text="Yes"
                 Command="{Binding LogoutCommand}"
                 WidthRequest="100"/>
 
-            <Button
-                Text="No"
-                Command="{Binding GoBackCommand}"
-                WidthRequest="100"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

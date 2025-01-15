@@ -14,11 +14,5 @@ namespace CarListApp.ViewModels
             _authService.Logout();
             await Shell.Current.GoToAsync(nameof(LoginPage), true);
         }
-
-        [RelayCommand]
-        private async Task GoBack()
-        {
-            await Shell.Current.GoToAsync("..", true);
-        }
     }
 }
