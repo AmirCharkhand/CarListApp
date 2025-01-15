@@ -39,6 +39,7 @@
 
         <Entry
             Placeholder="Password"
+            IsPassword="True"
             Text="{Binding Password}"/>
 
         <Button
