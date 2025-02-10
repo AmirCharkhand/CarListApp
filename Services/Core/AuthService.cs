@@ -20,8 +20,7 @@ namespace CarListApp.Services.Core
             response.EnsureSuccessStatusCode();
             var userAuth = await response.Content.ReadFromJsonAsync<UserAuthModel>() ?? throw new NullReferenceException();
             EnsureIdCorrect(userAuth);
-            await SetJwtInSorage(userAuth);
-            await SetUserInfoInStorage(userAuth);
+            await Task.WhenAll(SetJwtInSorage(userAuth), SetUserInfoInStorage(userAuth));
         }
 
         public void Logout()
